@@ -2,7 +2,7 @@ import React from 'react';
 
 function FilterDropdown({ onTypeChange, selectedType }) {
   return (
-    <div className="w-full mt-4"> {/* Added margin-top */}
+    <div className="w-full mt-4">
       <select
         value={selectedType}
         onChange={(e) => onTypeChange(e.target.value)}

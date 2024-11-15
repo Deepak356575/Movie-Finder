@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { SearchPage } from './pages/SearchPage';  // Changed to named import
+import { SearchPage } from './pages/SearchPage';  
 import FavoritesPage from './pages/FavoritesPage';
 
 function App() {
