@@ -69,10 +69,10 @@ function SearchPage() {
         <p className="text-sm text-gray-300">Your Ultimate Movie Guide</p>
       </div>
 
-      <div className="absolute top-44 right-8 md:top-20 md:right-20 lg:top-20 lg:right-20 ">
+      <div className="absolute top-10 right-2 md:top-20 md:right-20   ">
         <Link 
           to="/favorites" 
-          className="text-white bg-violet-800 rounded-lg p-2 hover:bg-violet-700 "
+          className="text-white bg-violet-800 rounded-lg p-2 hover:bg-violet-700 font-thin md:font-normal "
         >
           My Favorites
         </Link>
@@ -102,7 +102,7 @@ function SearchPage() {
         </div>
       ) : (
         <div className="container mx-auto px-4 py-8 mt-16">
-          <h1 className="text-3xl font-bold text-center mb-8 text-violet-700">Movie Search</h1>
+          <h1 className="text-3xl font-bold text-center mb-8 md:text-violet-700">Movie Search</h1>
           
           <div className="flex flex-col items-center gap-4 mb-8">
             <div className="w-full max-w-2xl backdrop-blur-sm bg-white/10 p-4 rounded-lg">

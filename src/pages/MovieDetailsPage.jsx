@@ -87,7 +87,7 @@ function MovieDetailsPage() {
       
 
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Movie Poster */}
+          
           <div className="md:w-1/3">
             <img
               src={movie.Poster !== 'N/A' ? movie.Poster : '/placeholder-image.jpg'}
