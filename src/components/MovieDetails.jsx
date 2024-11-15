@@ -24,16 +24,18 @@ function MovieDetailsPage() {
     fetchMovieDetails();
   }, [id]);
 
-  if (loading) return <div className="text-center py-8">Loading...</div>;
+  if (loading) return <div className="text-center py-8 text-violet-600">Loading...</div>;
   if (error) return <ErrorMessage message={error} />;
   if (!movie) return null;
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className='bg-black '>
+    <div className="container  text-white mx-auto px-4 py-8">
       <button
         onClick={() => navigate(-1)}
-        className="mb-6 px-4 py-2 bg-gray-100 rounded-md hover:bg-gray-200"
-      ><svg
+        className="mb-6 px-4 py-2 bg-violet-600 rounded-md flex gap-2 text-center hover:bg-violet-500"
+      >
+        <svg
       xmlns="http://www.w3.org/2000/svg"
       className="h-5 w-5"
       viewBox="0 0 24 24"
@@ -57,30 +59,30 @@ function MovieDetailsPage() {
           />
         </div>
         <div>
-          <h1 className="text-3xl font-bold mb-4">{movie.Title}</h1>
+          <h1 className="text-3xl font-bold mb-4 text-violet-600">{movie.Title}</h1>
           <div className="space-y-4">
             <p className="text-xl">{movie.Plot}</p>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <h3 className="font-bold">Year</h3>
+                <h3 className="font-bold text-violet-600">Year</h3>
                 <p>{movie.Year}</p>
               </div>
               <div>
-                <h3 className="font-bold">Genre</h3>
+                <h3 className="font-bold text-violet-600">Genre</h3>
                 <p>{movie.Genre}</p>
               </div>
               <div>
-                <h3 className="font-bold">Director</h3>
+                <h3 className="font-bold text-violet-600">Director</h3>
                 <p>{movie.Director}</p>
               </div>
               <div>
-                <h3 className="font-bold">Runtime</h3>
+                <h3 className="font-bold text-violet-600">Runtime</h3>
                 <p>{movie.Runtime}</p>
               </div>
             </div>
             {movie.Ratings && movie.Ratings.length > 0 && (
               <div>
-                <h3 className="font-bold mb-2">Ratings</h3>
+                <h3 className="font-bold mb-2 text-violet-600">Ratings</h3>
                 <div className="space-y-2">
                   {movie.Ratings.map((rating) => (
                     <div key={rating.Source}>
@@ -94,6 +96,7 @@ function MovieDetailsPage() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
