@@ -4,6 +4,7 @@ import SearchBar from "../components/SearchBar";
 import { searchMovies } from "../services/api";
 import FilterDropdown from '../components/FilterDropdown';
 import MovieGrid from '../components/MovieGrid';
+
 function SearchPage() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -12,7 +13,6 @@ function SearchPage() {
   const [totalResults, setTotalResults] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('');
-
 
   const handleSearch = async (term, page = 1) => {
     if (!term.trim()) return;
@@ -64,15 +64,15 @@ function SearchPage() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="absolute top-4 left-4 text-white">
+      <div className="absolute top-20 left-20 text-white">
         <h2 className="text-2xl text-violet-600 font-bold tracking-wider">Ozbourne"</h2>
         <p className="text-sm text-gray-300">Your Ultimate Movie Guide</p>
       </div>
 
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-44 right-8 md:top-20 md:right-20 lg:top-20 lg:right-20 ">
         <Link 
           to="/favorites" 
-          className="text-white bg-violet-600 rounded-lg m-5 p-2 hover:bg-violet-700 transition-colors duration-300"
+          className="text-white bg-violet-800 rounded-lg p-2 hover:bg-violet-700 "
         >
           My Favorites
         </Link>
@@ -80,42 +80,45 @@ function SearchPage() {
 
       {!searchTerm && !loading && movies.length === 0 ? (
         <div className="flex-1 flex flex-col items-center justify-center px-4">
-          <h1 className="text-5xl font-bold text-center mb-8 text-violet-600 drop-shadow-lg">
+          <h1 className="text-5xl font-bold text-center mb-8 text-violet-700 drop-shadow-lg">
             Movie Search
           </h1>
           <div className="w-full max-w-2xl backdrop-blur-sm bg-white/10 p-6 rounded-lg shadow-2xl">
-            <div className="flex gap-4">
-              <div className="flex-1">
+            <div className="flex flex-col gap-4">
+              <div className="w-full">
                 <SearchBar 
                   onSearch={handleSearch} 
                   initialSearchTerm={searchTerm}
                 />
               </div>
-             <FilterDropdown
-             onTypeChange={handleTypeChange}
-             selectedType={selectedType}
-             />
+              <div className=" w-48 mx-auto">
+                <FilterDropdown
+                  onTypeChange={handleTypeChange}
+                  selectedType={selectedType}
+                />
+              </div>
             </div>
           </div>
         </div>
       ) : (
-
-<div className="container mx-auto px-4 py-8 mt-16">
-          <h1 className="text-3xl font-bold text-center mb-8 text-violet-600">Movie Search</h1>
+        <div className="container mx-auto px-4 py-8 mt-16">
+          <h1 className="text-3xl font-bold text-center mb-8 text-violet-700">Movie Search</h1>
           
           <div className="flex flex-col items-center gap-4 mb-8">
             <div className="w-full max-w-2xl backdrop-blur-sm bg-white/10 p-4 rounded-lg">
-              <div className="flex gap-4">
-                <div className="flex-1">
+              <div className="flex flex-col gap-4"> 
+                <div className="w-full">
                   <SearchBar 
                     onSearch={handleSearch} 
                     initialSearchTerm={searchTerm}
                   />
                 </div>
-                <FilterDropdown 
-                  onTypeChange={handleTypeChange}
-                  selectedType={selectedType}
-                />
+                <div className="w-full"> 
+                  <FilterDropdown 
+                    onTypeChange={handleTypeChange}
+                    selectedType={selectedType}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -126,26 +129,23 @@ function SearchPage() {
             </div>
           )}
 
-
           {loading ? (
             <div className="text-center py-8">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-violet-500 border-t-transparent"></div>
               <p className="mt-2 text-violet-600">Loading...</p>
             </div>
           ) : (
-
             movies.length > 0 && (
               <div className="backdrop-blur-sm bg-black/30 p-6 rounded-lg">
                <MovieGrid
-               movies={movies}
-               currentPage={currentPage}
-               totalResults={totalResults}
-               onPageChange={handlePageChange}
+                 movies={movies}
+                 currentPage={currentPage}
+                 totalResults={totalResults}
+                 onPageChange={handlePageChange}
                />
               </div>
             )
           )}
-
 
           {!loading && !error && movies.length === 0 && searchTerm && (
             <div className="text-center py-8 text-white">
