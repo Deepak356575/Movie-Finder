@@ -113,7 +113,7 @@ function SearchPage() {
                     initialSearchTerm={searchTerm}
                   />
                 </div>
-                <div className="w-full"> 
+                <div className="w-48 mx-auto"> 
                   <FilterDropdown 
                     onTypeChange={handleTypeChange}
                     selectedType={selectedType}
