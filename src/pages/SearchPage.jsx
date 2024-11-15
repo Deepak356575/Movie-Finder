@@ -1,18 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from "../components/SearchBar";
 import { searchMovies } from "../services/api";
 import FilterDropdown from '../components/FilterDropdown';
 import MovieGrid from '../components/MovieGrid';
 
-function SearchPage() {
-  const [movies, setMovies] = useState([]);
+export const SearchPage = () => {
+  
+  const [movies, setMovies] = useState(() => {
+    const savedMovies = localStorage.getItem('searchedMovies');
+    return savedMovies ? JSON.parse(savedMovies) : [];
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalResults, setTotalResults] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedType, setSelectedType] = useState('');
+  const [currentPage, setCurrentPage] = useState(() => {
+    return parseInt(localStorage.getItem('currentPage')) || 1;
+  });
+  const [totalResults, setTotalResults] = useState(() => {
+    return parseInt(localStorage.getItem('totalResults')) || 0;
+  });
+  const [searchTerm, setSearchTerm] = useState(() => {
+    return localStorage.getItem('searchTerm') || '';
+  });
+  const [selectedType, setSelectedType] = useState(() => {
+    return localStorage.getItem('selectedType') || '';
+  });
+
+  
+  useEffect(() => {
+    localStorage.setItem('searchedMovies', JSON.stringify(movies));
+    localStorage.setItem('currentPage', currentPage.toString());
+    localStorage.setItem('totalResults', totalResults.toString());
+    localStorage.setItem('searchTerm', searchTerm);
+    localStorage.setItem('selectedType', selectedType);
+  }, [movies, currentPage, totalResults, searchTerm, selectedType]);
+
+  
+  useEffect(() => {
+    if (searchTerm) {
+      handleSearch(searchTerm, currentPage);
+    }
+  }, []); 
 
   const handleSearch = async (term, page = 1) => {
     if (!term.trim()) return;
@@ -54,6 +82,19 @@ function SearchPage() {
     window.scrollTo(0, 0);
   };
 
+  const resetSearch = () => {
+    setMovies([]);
+    setSearchTerm('');
+    setSelectedType('');
+    setCurrentPage(1);
+    setTotalResults(0);
+    localStorage.removeItem('searchedMovies');
+    localStorage.removeItem('searchTerm');
+    localStorage.removeItem('selectedType');
+    localStorage.removeItem('currentPage');
+    localStorage.removeItem('totalResults');
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative"
       style={{
@@ -69,10 +110,11 @@ function SearchPage() {
         <p className="text-sm text-gray-300">Your Ultimate Movie Guide</p>
       </div>
 
-      <div className="absolute top-10 right-2 md:top-20 md:right-20   ">
+      <div className="absolute top-10 right-2 md:top-20 md:right-20 flex gap-4">
+        
         <Link 
           to="/favorites" 
-          className="text-white bg-violet-800 rounded-lg p-2 hover:bg-violet-700 font-thin md:font-normal "
+          className="text-white bg-violet-800 rounded-lg p-2 hover:bg-violet-700 font-thin md:font-normal"
         >
           My Favorites
         </Link>
@@ -91,11 +133,17 @@ function SearchPage() {
                   initialSearchTerm={searchTerm}
                 />
               </div>
-              <div className=" w-48 mx-auto">
+              <div className="w-full lg:w-48 mx-auto">
                 <FilterDropdown
                   onTypeChange={handleTypeChange}
                   selectedType={selectedType}
                 />
+                <button
+          onClick={resetSearch}
+          className="text-black w-48 bg-teal-500 m-2 mx-auto rounded-lg p-2 hover:bg-violet-700 font-thin md:font-normal"
+        >
+          Reset Search
+        </button>
               </div>
             </div>
           </div>
@@ -106,18 +154,26 @@ function SearchPage() {
           
           <div className="flex flex-col items-center gap-4 mb-8">
             <div className="w-full max-w-2xl backdrop-blur-sm bg-white/10 p-4 rounded-lg">
-              <div className="flex flex-col gap-4"> 
+              <div className="flex flex-col gap-4">
                 <div className="w-full">
                   <SearchBar 
                     onSearch={handleSearch} 
                     initialSearchTerm={searchTerm}
                   />
                 </div>
-                <div className="w-48 mx-auto"> 
+                <div className="w-full lg:w-48 mx-auto ">
                   <FilterDropdown 
                     onTypeChange={handleTypeChange}
                     selectedType={selectedType}
                   />
+              
+                  <button
+          onClick={resetSearch}
+          className="text-Black w-48 m-2 mx-auto bg-teal-500 rounded-lg p-2 hover:bg-violet-700 font-thin md:font-normal"
+        >
+          Reset Search
+        </button>
+                  
                 </div>
               </div>
             </div>
@@ -156,6 +212,4 @@ function SearchPage() {
       )}
     </div>
   );
-}
-
-export default SearchPage;
+};
