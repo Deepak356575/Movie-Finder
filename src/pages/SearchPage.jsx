@@ -140,7 +140,7 @@ export const SearchPage = () => {
                 />
                 <button
           onClick={resetSearch}
-          className="text-black w-48 bg-teal-500 m-2 mx-auto rounded-lg p-2 hover:bg-violet-700 font-thin md:font-normal"
+          className="text-black w-48 bg-teal-500 m-2 mx-auto rounded-lg p-2 hover:bg-violet-700  md:font-normal"
         >
           Reset Search
         </button>
@@ -169,7 +169,7 @@ export const SearchPage = () => {
               
                   <button
           onClick={resetSearch}
-          className="text-Black w-48 m-2 mx-auto bg-teal-500 rounded-lg p-2 hover:bg-violet-700 font-thin md:font-normal"
+          className="text-black w-48 m-2 mx-auto bg-teal-500 rounded-lg p-2 hover:bg-violet-700  md:font-normal"
         >
           Reset Search
         </button>
