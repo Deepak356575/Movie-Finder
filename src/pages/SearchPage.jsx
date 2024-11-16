@@ -133,7 +133,7 @@ export const SearchPage = () => {
                   initialSearchTerm={searchTerm}
                 />
               </div>
-              <div className="w-full lg:w-48 mx-auto">
+              <div className="w-48 mx-auto">
                 <FilterDropdown
                   onTypeChange={handleTypeChange}
                   selectedType={selectedType}
@@ -161,7 +161,7 @@ export const SearchPage = () => {
                     initialSearchTerm={searchTerm}
                   />
                 </div>
-                <div className="w-full lg:w-48 mx-auto ">
+                <div className="w-48 mx-auto ">
                   <FilterDropdown 
                     onTypeChange={handleTypeChange}
                     selectedType={selectedType}
